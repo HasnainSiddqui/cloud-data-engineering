@@ -1,0 +1,4 @@
+id,name,department,status
+1,Alice,Engineering,active
+2,Bob,Finance,active
+3,Carol,Engineering,inactive

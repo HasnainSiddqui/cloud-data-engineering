@@ -1,0 +1,4 @@
+Smit batch 05
+Server restarted at 02:14
+Backup completed successfully
+3 failed login attempts flagged

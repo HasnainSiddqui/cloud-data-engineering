@@ -1,0 +1,6 @@
+name,department,salary,active
+Alice,Engineering,85000,True
+Bob,Finance,72000,True
+Carol,Engineering,91000,False
+David,HR,65000,True
+Eve,Finance,78000,True
