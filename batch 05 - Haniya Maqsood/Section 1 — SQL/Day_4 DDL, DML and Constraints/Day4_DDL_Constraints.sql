@@ -1,187 +1,246 @@
--- SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'products'
-
--- datatypes
--- 1GB - 1024 MB-- 1Mb - 1024 kb - 1kb - 1024 bytes
-
- customer_id INT, - 10 digits -- 1,2,3 -- 000000000000000000000000001 -- 0000000000000000000000000010 8-10 bytes
- -- age - 3 digits - SMALLINT
-
-1. Numeric Types:
-   - INT, SMALLINT, TINYINT (integers)
-     Example: customer_id INT, age TINYINT (0-255)
-   - DECIMAL(p,s) - exact decimal
-     Example: list_price DECIMAL(10,2) → max 99,999,999.99
-   - FLOAT/REAL - approximate (avoid for money)
+/*=========================================================
+                    SQL DAY 4
+      DDL, DML, DATA TYPES & CONSTRAINTS
+=========================================================*/
 
 
-   CUSTOMER_NAME CHAR(500) - ROY -- 
-     CUSTOMER_NAME VARCHAR(500) - ROY -- 
+/*---------------------------------------------------------
+    CHECK TABLE STRUCTURE
+---------------------------------------------------------*/
+
+SELECT *
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'products';
 
 
-2. Character/String Types:
-   - CHAR(n) - fixed length (wastes space but faster)
-   - VARCHAR(n) - variable length (save space)
-     Example: first_name VARCHAR(255)
-   - TEXT - large text (deprecated, use VARCHAR(MAX))
+/*---------------------------------------------------------
+    DATA TYPES
+---------------------------------------------------------*/
 
-   
-3. Date/Time Types:
-   - DATE - just date (2025-01-15)
-   - TIME - just time (14:30:00)
-   - DATETIME - date + time
-   - SMALLDATETIME - less precision
+-- Numeric Data Types
 
+-- customer_id INT
+-- Used for whole numbers
 
-4. Other Types:
-   - BIT - boolean (0,1, or NULL)
-     Example: active TINYINT (used as boolean)
-   - UNIQUEIDENTIFIER - GUIDs
+-- age SMALLINT
+-- Suitable for smaller numeric values
 
+-- DECIMAL(p,s)
+-- Example: DECIMAL(10,2)
+-- Maximum value: 99,999,999.99
 
-
-   -------------------- CONSTRAINTS --------------------
-PRIMARY KEY - uniquely identifies each row
-FOREIGN KEY - links table
-UNIQUE - no duplicate values (but can have one NULL)
-
-NOT NULL - must have a value
-Example: product_name VARCHAR(255) NOT NULL
+-- FLOAT / REAL
+-- Approximate values
 
 
+/*---------------------------------------------------------
+    CHARACTER DATA TYPES
+---------------------------------------------------------*/
+
+-- CHAR(n)
+-- Fixed length
+
+-- VARCHAR(n)
+-- Variable length
+
+-- Example:
+-- CHAR(500) vs VARCHAR(500)
 
 
-2. ALTER TABLE - modify existing structure
+/*---------------------------------------------------------
+    DATE & TIME DATA TYPES
+---------------------------------------------------------*/
 
-    ALTER TABLE sales.customers
-    add date_of_birth date;
-
-   a) ADD column:
-
-   b) DROP column:
-
-   c) ADD constraint:
-
-   d) ALTER column datatype:
+-- DATE
+-- TIME
+-- DATETIME
+-- SMALLDATETIME
 
 
-3. TRUNCATE TABLE  sales.customers
+/*---------------------------------------------------------
+    OTHER DATA TYPES
+---------------------------------------------------------*/
 
-4. DELETE FROM sales.customers 
- WHERE TRANSACTION_DATE = '2026-01-01'
+-- BIT
+-- UNIQUEIDENTIFIER
 
 
+/*---------------------------------------------------------
+    CONSTRAINTS
+---------------------------------------------------------*/
+
+-- PRIMARY KEY
+-- FOREIGN KEY
+-- UNIQUE
+-- NOT NULL
+
+
+/*=========================================================
+                    ALTER TABLE
+=========================================================*/
+
+-- Add a new column
+
+ALTER TABLE sales.customers
+ADD date_of_birth DATE;
+
+
+-- Drop a column
+
+ALTER TABLE sales.customers
+DROP COLUMN date_of_birth;
+
+
+-- Add constraint
+
+ALTER TABLE sales.customers
+ADD CONSTRAINT UQ_Customer_Email
+UNIQUE(email);
+
+
+-- Change datatype
+
+ALTER TABLE sales.customers
+ALTER COLUMN phone VARCHAR(20);
+
+
+/*=========================================================
+                    TRUNCATE
+=========================================================*/
+
+TRUNCATE TABLE sales.customers;
+
+
+/*=========================================================
+                    DELETE
+=========================================================*/
+
+DELETE
+FROM sales.customers
+WHERE TRANSACTION_DATE = '2026-01-01';
+
+
+/*=========================================================
+                    BACKUP TABLE
+=========================================================*/
 
 SELECT *
 INTO production.products_bkp
 FROM production.categories;
 
-select * from [production].[products_bkp]
+
+SELECT *
+FROM production.products_bkp;
 
 
-    INSERT INTO production.products (
-     column names
-   )
-   VALUES (
-     column values datatype
-   );
+/*=========================================================
+                    INSERT
+=========================================================*/
+
+INSERT INTO production.categories
+(
+    category_name
+)
+VALUES
+(
+    'Motor Bikes'
+);
 
 
-      INSERT INTO production.categories (category_name)
-   VALUES ('Motor Bikes'), ('Sports Bikes');
+INSERT INTO production.categories
+(
+    category_name
+)
+VALUES
+(
+    'Motor Bikes'
+),
+(
+    'Sports Bikes'
+);
 
 
+SELECT *
+FROM production.categories;
 
 
+/*=========================================================
+                    UPDATE
+=========================================================*/
 
-   select * from production.categories
-   ----------- UPDATE
-   UPDATE production.categories
-   SET category_name = 'Pink Bikes'
-   where category_id = 9;
-
-
-
+UPDATE production.categories
+SET category_name = 'Pink Bikes'
+WHERE category_id = 9;
 
 
+/*=========================================================
+                    INSERT EXAMPLES
+=========================================================*/
+
+INSERT INTO production.brands
+(
+    brand_name
+)
+VALUES
+(
+    'Giant'
+),
+(
+    'Specialized'
+),
+(
+    'Cannondale'
+);
 
 
-
-3. Date/Time Types:
-   - DATE - just date (2025-01-15)
-   - TIME - just time (14:30:00)
-   - DATETIME - date + time
-   - SMALLDATETIME - less precision
-
-4. Other Types:
-   - BIT - boolean (0,1, or NULL)
-     Example: active TINYINT (used as boolean)
-   - UNIQUEIDENTIFIER - GUIDs
+-- Identity column example
+INSERT INTO production.categories
+(
+    category_name
+)
+VALUES
+(
+    'E-Bikes'
+);
 
 
--------------------- CONSTRAINTS --------------------
-PRIMARY KEY - uniquely identifies each row
-FOREIGN KEY - links table
-UNIQUE - no duplicate values (but can have one NULL)
+-- Insert from another table
 
-NOT NULL - must have a value
-Example: product_name VARCHAR(255) NOT NULL
-
-2. ALTER TABLE - modify existing structure
-
-    ALTER TABLE sales.customers
-    [action] [column] [datatype];
-
-   a) ADD column:
-
-   b) DROP column:
-
-   c) ADD constraint:
-
-   d) ALTER column datatype:
-
-3. DROP TABLE - remove entire table (CAUTION!)
-
-4. TRUNCATE TABLE - remove all rows (faster than DELETE)
+INSERT INTO production.products_archive
+SELECT *
+FROM production.products
+WHERE model_year < 2020;
 
 
------------------------ DML LANGUAGE --------------------
+/*=========================================================
+                    UPDATE & DELETE
+=========================================================*/
 
-   INSERT INTO production.products (
-     column names
-   )
-   VALUES (
-     column values datatype
-   );
-
-2. INSERT multiple rows:
-   INSERT INTO production.brands (brand_name)
-   VALUES 
-     ('Giant'),
-     ('Specialized'),
-     ('Cannondale');
-
-3. INSERT with IDENTITY column (auto-number):
-   -- Don't specify category_id, it auto-generates
-   INSERT INTO production.categories (category_name)
-   VALUES ('E-Bikes');
-
-4. INSERT from SELECT (copy data):
-   INSERT INTO production.products_archive
-   SELECT * FROM production.products WHERE model_year < 2020;
-
-------------------------- UPDATE & DELETE
-   Syntax:
-   UPDATE table_name
-   SET column1 = value1, column2 = value2
-   WHERE condition;  -- VERY IMPORTANT!
-
-   2. DELETE - remove rows
-   Syntax:
-   DELETE FROM table_name
-   WHERE condition;
+UPDATE table_name
+SET column1 = value1,
+    column2 = value2
+WHERE condition;
 
 
-   Practice commands for today:
-- CREATE TABLE, ALTER TABLE, DROP TABLE
-- INSERT, UPDATE, DELETE
-- Check constraints with SELECT queries 
+DELETE
+FROM table_name
+WHERE condition;
+
+
+/*=========================================================
+                    PRACTICE COMMANDS
+=========================================================*/
+
+-- CREATE TABLE
+
+-- ALTER TABLE
+
+-- DROP TABLE
+
+-- INSERT
+
+-- UPDATE
+
+-- DELETE
+
+-- Check constraints using SELECT queries

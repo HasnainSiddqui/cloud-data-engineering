@@ -15,28 +15,11 @@ CREATE INDEX idx_customer_name_state ON sales.customers(first_name, state);
 select * from [sales].[customers]
 where first_name = 'Tam' and state = 'NY';
 
-
-select * from [sales].[orders]
-
 -- Create unique index (no duplicates allowed)
 CREATE UNIQUE INDEX idx_customer_EMAIL ON sales.customers(email);
 
-
 -- Q: Should you index a "gender" column (M/F only)?
 -- NO
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 -- to find indexes on tables
 EXEC sp_helpindex [Tablename];
@@ -75,24 +58,13 @@ SELECT * FROM sales.customers
 WHERE city like 'St%';
 
 -- Q: Should you index a "gender" column (M/F only)?
+-- No
 
 -- Q: Should you index "email" column?
+-- Yes
 
 -- STORED PROCEDURES
 -- SAVE A sql SCRIPT AND USE IT REPEATEDLY
-
- --CREATE PROCEDURE procedure_name
- --AS
- --BEGIN
- --    Your SQL code here
- --END;
-
-
-
-
-
-
-
 
 -- 
 -- **Basic Syntax:**
@@ -141,7 +113,7 @@ BEGIN
 END
 END;
 
---exec sp_UpdateProductPrice 2,850
+-- exec sp_UpdateProductPrice 2,850
 -- Get customer order history (PARAMETER CUSTOMER_ID)
 
 --  2. Restock alert (products with low inventory) (SET DEFAULT THRESHOLD 10)
@@ -159,16 +131,12 @@ END;
 
 exec [dbo].[sp_restock_product] 2
 
-
-
-
 -- ALTER PROCEDURE
 -- DROP PROCEDURE
 
 
 -- GET CUSTOMERS PENDING ORDER
-
-
+-- Do it by yourself
 
 --| Scenario | Action |
 --|----------|--------|
