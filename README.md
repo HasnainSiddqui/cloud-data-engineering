@@ -246,7 +246,7 @@ Welcome to the **Cloud Data Engineering** course — a comprehensive, instructor
 | Class | Topic | Duration |
 |-------|-------|----------|
 | Class 1 | Introduction, Architecture & Setup (Docker + WSL) | 3 hrs |
-| Class 2 | Weather ETL Project — End-to-End Airflow Pipeline | 3 hrs |
+| Class 2 | News AI ETL Project — End-to-End Airflow Pipeline | 3 hrs |
 | Class 3 | FMP Parallel ETL Pipeline on AWS EC2 | 3 hrs |
 
 **What you'll cover:**
@@ -257,8 +257,11 @@ Welcome to the **Cloud Data Engineering** course — a comprehensive, instructor
 - TaskGroups for parallel execution, retry policies, backfilling
 
 **Projects:**
-- **Weather ETL Pipeline** — Daily pipeline using Open-Meteo API → pandas → SQLite, deployed via Docker Compose
+- **News AI ETL Pipeline** — End-to-end Airflow pipeline for news ingestion & AI-powered processing -> https://github.com/ayanhussain81/news-ai-etl
 - **Parallel ETL on AWS** — Production-style parallel pipeline: FMP API + S3 CSV → RDS PostgreSQL → S3 export, using TaskGroups on AWS EC2
+
+**Assignment:**
+- **Weather ETL Pipeline** — Daily pipeline using Open-Meteo API → pandas → SQLite, deployed via Docker Compose
 
 ## 🐋 Section 4 — CI/CD, Docker & Bash Scripting *(2 weeks)*
 
